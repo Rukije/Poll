@@ -1,132 +1,124 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { useNavigation } from '@react-navigation/native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
+const polls = [
+  { id: 1, title: 'Politike' },
+  { id: 2, title: 'Art' },
+  { id: 3, title: 'Kulture' },
+  { id: 4, title: 'Roze' },
+  { id: 5, title: 'Sport' },
+  { id: 6, title: 'Teknologji' },
+  { id: 7, title: 'Shkence' },
+  { id: 8, title: 'Muzike' },
+];
 
-  const loginSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string().required('Password is required'),
-  });
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>POLL</Text>
-      </View>
-
-<Formik
-  initialValues={{ email: '', password: '' }}
-  validationSchema={loginSchema}
-  onSubmit={() => console.log('Submitting form')} 
->
-  {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-    <>
-      <TextInput
-        style={styles.input}
-        placeholder="Email or Username"
-        onChangeText={handleChange('email')}
-        onBlur={handleBlur('email')}
-        value={values.email}
-        autoCapitalize="none"
-      />
-      {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={handleChange('password')}
-        onBlur={handleBlur('password')}
-        value={values.password}
-        secureTextEntry
-      />
-      {errors.password && <Text style={styles.error}>{errors.password}</Text>}
-      
-      <Link href={`/polls/category}`}> 
-        <TouchableOpacity onPress={() => handleSubmit()} style={styles.button}>
-         <Text style={styles.buttonText}>LOGIN</Text>
-        </TouchableOpacity>
-      </Link> 
-    </>
-  )}
-</Formik>
-
-      <TouchableOpacity style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
-      {/* <Text style={styles.orText}>OR LOGIN WITH</Text> */}
-      <TouchableOpacity style={styles.signUpContainer}>
-        <Text style={styles.signUpText}>Don't Have Account? Sign Up</Text>
-      </TouchableOpacity>
-    </View>
-  );
+const getIconName = (title: string): string => {
+  switch (title) {
+    case 'Politike':
+      return 'account-group';
+    case 'Art':
+      return 'palette';
+    case 'Kulture':
+      return 'library';
+    case 'Roze':
+      return 'heart';
+    case 'Sport':
+      return 'soccer';
+    case 'Teknologji':
+      return 'laptop';
+    case 'Shkence':
+      return 'atom';
+    case 'Muzike':
+      return 'music';
+    default:
+      return 'help-circle';
+  }
 };
+
+
+export default function Category() {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Polls',
+          headerStyle: {
+            backgroundColor: '#193C47',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <View style={styles.categoryTextContainer}>
+        <Text style={styles.categoryText}>Ju lutem selektoni kategorine specifike!</Text>
+      </View>
+      <FlatList
+        data={polls}
+        numColumns={2}
+        contentContainerStyle={styles.container}
+        renderItem={({ item }) => (
+          <View style={styles.pollContainer}>
+            <Link href={`/polls/${item.id}`} style={styles.link}>
+              <View style={styles.pollContent}>
+                <Icon name={getIconName(item.title)} size={24} color="white" style={styles.icon} />
+                <Text style={styles.pollTitle}>
+                   {item.title}
+                </Text>
+              </View>
+            </Link>
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </>
+  );
+}
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: 10,
+    gap: 10,
+    overflow: 'hidden',
   },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  logoText: {
-    fontSize: 100,
-    color: '#193C47',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
+  categoryTextContainer: {
     backgroundColor: '#193C47',
     padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center'
+    margin: 20,
+    borderRadius: 10,
   },
-  buttonText: {
-    color: '#fff',
+  categoryText: {
+    color: 'white',
     fontWeight: 'bold',
   },
-  error: {
-    color: 'red',
-  },
-  forgotPasswordContainer: {
-    alignItems: 'flex-end',
-    marginTop: 10,
-  },
-  forgotPasswordText: {
-    color: '#d32f2f',
-  },
-  orText: {
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  socialContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 10,
-  },
-  socialButton: {
-    fontSize: 24,
-    marginHorizontal: 10,
-  },
-  signUpContainer: {
+  pollContainer: {
+    backgroundColor: '#5e767e',
+    padding: 40,
+    borderRadius: 15,
+    margin: 5,
+    flex: 1,
+    maxWidth: '50%',
     alignItems: 'center',
-    marginTop: 20,
+    justifyContent: 'center',
   },
-  signUpText: {
-    color: '#d32f2f',
+  link: {
+    textAlign: 'center',
+  },
+  pollContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 10,
+  },
+  pollTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'white',
   },
 });
-
-export default LoginScreen;
