@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'rea
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+import { Tabs } from 'expo-router';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -61,6 +62,7 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't Have Account? Sign Up</Text>
       </TouchableOpacity>
+     
     </View>
   );
 };

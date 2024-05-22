@@ -4,7 +4,7 @@ export default function RootLayout() {
   return (
     <Stack initialRouteName='auth/login'>
       <Stack.Screen name="auth/login" options={{ headerShown: false }} />
-      <Stack.Screen name="index" options={{ title: 'Categories' }} />
+      <Stack.Screen name="index" options={{ headerShown: false  }} />
       <Stack.Screen name="polls/[id]" options={{ title: 'Poll Details' }} />
     </Stack>
   );
