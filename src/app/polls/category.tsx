@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from 'react-native';
 import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { setItem } from 'expo-secure-store';
+import { getItem } from 'expo-secure-store';
 
 
 const polls = [
@@ -55,26 +57,55 @@ export default function Category() {
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
+    saveData(); 
   };
-
-  const handleAddQuestion = () => {
-    toggleModal();
-  };
-  
-  
 
   const handleCheckboxChange = (index: number, value: string) => {
     const newCheckboxes = [...checkboxes];
     newCheckboxes[index].text = value;
     setCheckboxes(newCheckboxes);
+    // saveData();
   };
 
   const handleCheckboxToggle = (index: number) => {
     const newCheckboxes = [...checkboxes];
     newCheckboxes[index].checked = !newCheckboxes[index].checked;
     setCheckboxes(newCheckboxes);
+    // saveData();
   };
 
+  const setQuestionAndSave = (value: string) => {
+    setQuestion(value);
+    // saveData();
+  };
+  const handleAddQuestion = () => {
+    toggleModal();
+    saveData(); 
+  };
+
+  const saveData = async () => {
+    try {
+      const dataToSave = {
+        question: question,
+        checkboxes: checkboxes
+      };
+      await setItem('categoryData', JSON.stringify(dataToSave)); 
+      console.log('Data saved successfully');
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const savedData = await getItem('categoryData');
+      console.log('Saved data:', savedData);
+    };
+  
+    fetchData();
+  }, []);
+  
+  
   const addCheckbox = () => {
     setCheckboxes([...checkboxes, { text: '', checked: false }]);
   };
@@ -127,7 +158,7 @@ export default function Category() {
             style={styles.input}
             placeholder="Shkruaj pyetjen"
             value={question}
-            onChangeText={setQuestion}
+            onChangeText={setQuestionAndSave}
           />
           {checkboxes.map((checkbox, index) => (
             <View key={index} style={styles.checkboxContainer}>
