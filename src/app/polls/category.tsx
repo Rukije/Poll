@@ -1,11 +1,10 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from 'react-native';
 import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { setItem } from 'expo-secure-store';
-import { getItem } from 'expo-secure-store';
-
+import { setItem, getItem } from '../../utils/AsyncStorage';
+import Toast from 'react-native-toast-message'; 
 
 const polls = [
   { id: 1, title: 'Politike' },
@@ -54,6 +53,7 @@ export default function Category() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [question, setQuestion] = useState('');
   const [checkboxes, setCheckboxes] = useState<Checkbox[]>([{ text: '', checked: false }]);
+  const [visiblePollsCount, setVisiblePollsCount] = useState(6); 
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -64,20 +64,18 @@ export default function Category() {
     const newCheckboxes = [...checkboxes];
     newCheckboxes[index].text = value;
     setCheckboxes(newCheckboxes);
-    // saveData();
   };
 
   const handleCheckboxToggle = (index: number) => {
     const newCheckboxes = [...checkboxes];
     newCheckboxes[index].checked = !newCheckboxes[index].checked;
     setCheckboxes(newCheckboxes);
-    // saveData();
   };
 
   const setQuestionAndSave = (value: string) => {
     setQuestion(value);
-    // saveData();
   };
+
   const handleAddQuestion = () => {
     toggleModal();
     saveData(); 
@@ -89,8 +87,12 @@ export default function Category() {
         question: question,
         checkboxes: checkboxes
       };
-      await setItem('categoryData', JSON.stringify(dataToSave)); 
-      console.log('Data saved successfully');
+      await setItem('categoryData', JSON.stringify(dataToSave));
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Data saved successfully 👋'
+      });
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -101,13 +103,15 @@ export default function Category() {
       const savedData = await getItem('categoryData');
       console.log('Saved data:', savedData);
     };
-  
     fetchData();
   }, []);
   
-  
   const addCheckbox = () => {
     setCheckboxes([...checkboxes, { text: '', checked: false }]);
+  };
+
+  const loadMorePolls = () => {
+    setVisiblePollsCount(prevCount => prevCount + 2);
   };
 
   return (
@@ -128,7 +132,7 @@ export default function Category() {
         <Text style={styles.categoryText}>Ju lutem selektoni kategorine specifike!</Text>
       </View>
       <FlatList
-        data={polls}
+        data={polls.slice(0, visiblePollsCount)} 
         numColumns={2}
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
@@ -145,6 +149,11 @@ export default function Category() {
         )}
         keyExtractor={(item) => item.id.toString()}
       />
+      {visiblePollsCount < polls.length && (
+        <TouchableOpacity onPress={loadMorePolls} style={styles.loadMoreButton}>
+          <Text style={styles.loadMoreButtonText}>Load More</Text>
+        </TouchableOpacity>
+      )}
       <TouchableOpacity onPress={toggleModal} style={styles.addButton}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
@@ -174,7 +183,7 @@ export default function Category() {
             </View>
           ))}
           <TouchableOpacity onPress={addCheckbox} style={styles.addCheckboxButton}>
-            <Text style={styles.addCheckboxButtonText}>Shto opsion</Text>
+            <Text style={styles.addCheckboxButtonText}>+</Text>
           </TouchableOpacity>
           <Pressable style={styles.modalButton} onPress={handleAddQuestion}>
             <Text style={styles.modalButtonText}>Shto</Text>
@@ -245,67 +254,71 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#193C47',
     fontSize: 24,
+    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
+    backgroundColor: 'white',
   },
   modalTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#193C47',
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 10,
+    height: 50,
+    borderColor: '#193C47',
+    borderWidth: 2,
     paddingHorizontal: 10,
-    borderRadius: 5,
-    width: '100%',
+    marginVertical: 10,
+    borderRadius: 10,
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginVertical: 5,
   },
   checkboxInput: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 5,
     flex: 1,
+    height: 50,
+    borderColor: '#193C47',
+    borderWidth: 2,
+    paddingHorizontal: 10,
+    borderRadius: 10,
     marginRight: 10,
   },
   checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    width: 30,
+    height: 30,
+    borderWidth: 2,
+    borderColor: '#193C47',
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   checked: {
-    width: 14,
-    height: 14,
+    width: 20,
+    height: 20,
     backgroundColor: '#193C47',
     borderRadius: 3,
   },
   addCheckboxButton: {
-    backgroundColor: '#193C47',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
     alignItems: 'center',
     marginVertical: 10,
+    alignSelf: 'center', 
+    width: '20%',
+    borderWidth:3,
   },
   addCheckboxButtonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#193C47',
+    fontSize: 20,
+    fontWeight:'900',
   },
   modalButton: {
     backgroundColor: '#193C47',
@@ -335,5 +348,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  loadMoreButton: {
+    backgroundColor: '#193C47',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 50,
+    width: 120,
+    alignSelf: 'center', 
+  },
+  loadMoreButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
