@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { setItem, getItem } from '../../utils/AsyncStorage';
-import Toast from 'react-native-toast-message'; 
+// import Toast from 'react-native-toast-message'; 
 
 const polls = [
   { id: 1, title: 'Politike' },
@@ -87,22 +87,19 @@ export default function Category() {
         question: question,
         checkboxes: checkboxes
       };
-      await setItem('categoryData', JSON.stringify(dataToSave));
-      Toast.show({
-        type: 'success',
-        text1: 'Success',
-        text2: 'Data saved successfully 👋'
-      });
+      await setItem('categoryData', JSON.stringify(dataToSave)); 
+      console.log('Data saved successfully');
     } catch (error) {
       console.error('Error saving data:', error);
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const savedData = await getItem('categoryData');
       console.log('Saved data:', savedData);
     };
+
     fetchData();
   }, []);
   
@@ -354,7 +351,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginVertical: 50,
+    marginVertical: 15,
     width: 120,
     alignSelf: 'center', 
   },

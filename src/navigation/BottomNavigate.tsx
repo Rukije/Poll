@@ -1,18 +1,8 @@
-// // import {Slot,Stack,Tabs} from 'expo-router';
-// import {Stack, Tabs} from 'expo-router';
-
-// export default function RootLayout(){
-//     return (
-//         <Stack/> 
-//         // <Slot /> //render the child component
-//         // <Stack /> add the index at the top
-//         // <Tabs /> add the tabs at the bottom and then can change
-//     );
-// }
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+// import BottomTabNavigator from '../navigation/BottomTabNavigator';
 
-export default function RootLayout() {
+export default function BottomTabNavigator() {
   return (
     <Tabs
       screenOptions={({ route }) => ({
@@ -25,8 +15,9 @@ export default function RootLayout() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'polls/[id]') {
             iconName = focused ? 'list' : 'list-outline';
-          } 
-           else {
+          } else if (route.name === 'bottomTabNavigator') {
+            iconName = focused ? 'options' : 'options-outline';
+          } else {
             iconName = 'ellipse'; 
           }
 
@@ -57,6 +48,7 @@ export default function RootLayout() {
           tabBarLabel: 'Polls',
         }} 
       />
+       <BottomTabNavigator/>
     </Tabs>
   );
 }
