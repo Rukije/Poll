@@ -3,9 +3,8 @@ import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'rea
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
-import { Tabs } from 'expo-router';
 
-const LoginScreen = () => {
+const LoginScreen = ({ onLogin }) => {
   const navigation = useNavigation();
 
   const loginSchema = Yup.object().shape({
@@ -22,9 +21,10 @@ const LoginScreen = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={loginSchema}
-        onSubmit={() => navigation.navigate('polls/category')} 
-        // onSubmit={() =>console.log('hello')} 
-
+        onSubmit={() => {
+          onLogin(); 
+          navigation.navigate('polls/category');
+        }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <>
@@ -57,7 +57,6 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.forgotPasswordContainer}>
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
-      {/* <Text style={styles.orText}>OR LOGIN WITH</Text> */}
       
       <TouchableOpacity style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't Have Account? Sign Up</Text>
@@ -86,17 +85,17 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: '#193C47',
     borderWidth: 3,
-    borderRadius:15,
+    borderRadius: 15,
     marginBottom: 10,
     paddingHorizontal: 10,
   },
   button: {
     backgroundColor: '#193C47',
     padding: 10,
-    marginTop:35,
-    borderRadius:15,
+    marginTop: 35,
+    borderRadius: 15,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonText: {
     color: '#fff',
@@ -111,20 +110,7 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     color: '#d32f2f',
-    marginBottom:50,
-  },
-  orText: {
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  socialContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 10,
-  },
-  socialButton: {
-    fontSize: 24,
-    marginHorizontal: 10,
+    marginBottom: 50,
   },
   signUpContainer: {
     alignItems: 'center',
