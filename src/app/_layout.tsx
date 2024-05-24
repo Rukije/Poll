@@ -9,15 +9,15 @@ export default function RootLayout() {
   const routes = useNavigationState(state => state?.routes);
 
   // ckeck nese route ne fillim eshte login
-  const currentRoute = routes?.[routes.length - 1]?.name;
+  // const currentRoute = routes?.[routes.length - 1]?.name;
 
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
-  if (!isLoggedIn) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
+  // if (!isLoggedIn) {
+  //   return <LoginScreen onLogin={handleLogin} />;
+  // }
 
   return (
     <Tabs
