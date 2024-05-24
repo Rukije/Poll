@@ -19,15 +19,15 @@ export default function RootLayout() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: keyof typeof Ionicons.glyphMap;
 
-          if (route.name === 'auth/login') {
-            iconName = focused ? 'log-in' : 'log-in-outline';
-          } else if (route.name === 'index') {
+          if (route.name === 'screens/home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'polls/[id]') {
+          } else if (route.name === 'screens/search') {
+            iconName = focused ? 'search' : 'search-outline';
+          } else if (route.name === 'polls/category') {
             iconName = focused ? 'list' : 'list-outline';
           } 
            else {
-            iconName = 'ellipse'; 
+           return null; 
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -37,24 +37,24 @@ export default function RootLayout() {
       })}
     >
       <Tabs.Screen 
-        name="auth/login" 
-        options={{ 
-          headerShown: false,
-          tabBarLabel: 'Login',
-        }} 
-      />
-      <Tabs.Screen 
-        name="index" 
+        name="screens/home" 
         options={{ 
           headerShown: false,
           tabBarLabel: 'Home',
         }} 
       />
       <Tabs.Screen 
-        name="polls/[id]" 
+        name="screens/search" 
+        options={{ 
+          title: 'Search',
+          tabBarLabel: 'Search',
+        }} 
+      />
+      <Tabs.Screen 
+        name="polls/category" 
         options={{ 
           title: 'Poll Details',
-          tabBarLabel: 'Polls',
+          tabBarLabel: 'Category',
         }} 
       />
     </Tabs>

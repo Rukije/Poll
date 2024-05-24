@@ -3,7 +3,7 @@ import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity,
 import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { setItem, getItem } from '../../utils/AsyncStorage';
+import { setItem, getItem } from '../utils/AsyncStorage';
 // import Toast from 'react-native-toast-message'; 
 
 const polls = [
