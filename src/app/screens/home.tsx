@@ -36,6 +36,7 @@ export default function Home() {
     ]).start();
   }, [fadeAnim, translateYAnim]);
 
+  // News
   const renderItemImage = ({ item }: { item: DataItem }) => (
     <Animated.View style={[ { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }]}>
       <View style={styles.imgContainer}>
@@ -50,6 +51,7 @@ export default function Home() {
       </View>
     </Animated.View>
   );
+  // end news
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -65,12 +67,13 @@ export default function Home() {
           },
         }}
       />
+      {/* Votuesit */}
       <View style={styles.container}>
         <View style={styles.voted}>
-          <Text style={styles.votedText}>1000 Votes</Text>
+          <Text style={styles.votedText}>1000 Vota</Text>
           <View style={styles.genderVotesConatiner}>
-            <Text style={styles.genderVotes}>570 Females</Text>
-            <Text style={styles.genderVotes}>330 Males</Text>
+            <Text style={styles.genderVotes}>570 Femra</Text>
+            <Text style={styles.genderVotes}>330 Meshkuj</Text>
           </View>
         </View>
         <View>
@@ -85,6 +88,9 @@ export default function Home() {
           contentContainerStyle={styles.flatListContainer}
         />
       </View>
+            {/* Votuesit */}
+
+      {/*  lets get started on voting section  */}
       <View style={styles.voteSection}>
         <Text style={styles.voteSectionText}>Let's get starting on <Text style={styles.voteSectionText2}>VOTING !</Text></Text>
       </View>
@@ -113,8 +119,48 @@ export default function Home() {
           </View>
           <Text style={styles.iconLabel}>Teknologji</Text>
         </View>
-        
       </View>
+      {/*  lets get started on voting section  */}
+
+      {/* last viewed */}
+      <View style={styles.viewedSection}>
+        <Text style={styles.viewedSectionText}>Last Viewed </Text>
+      
+      <View style={styles.iconViewsContainer}>
+        {/* <View style={styles.iconViewWrapper}>
+          <View style={styles.iconViewsCircle}>
+            <MaterialIcons name="man" size={32} color="#193C47" />
+          </View>
+          <Text style={styles.iconLabel}>Politikë</Text>
+        </View> */}
+        <View style={styles.iconWrapper}>
+          <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+        </View>
+        <View style={styles.iconWrapper}>
+          <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+        </View>
+        <View style={styles.iconWrapper}>
+        <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+        </View>
+        <View style={styles.iconWrapper}>
+          <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+        </View>
+       
+      </View>
+      <View style={styles.activePollsContainer}>
+  <View style={styles.activePolls}>
+    <Text style={styles.textActivePoll}>12 Active Polls</Text>
+    <Text style={styles.innertextActivePoll}>Show Details</Text>
+  </View>
+  <View style={styles.detailIcon}>
+    <FontAwesome5 name="forward" size={32} color="white" />
+  </View>
+</View>
+
+      </View>
+      
+          
+     
 
       
     </ScrollView>
@@ -166,7 +212,7 @@ const styles = StyleSheet.create({
   },
   news: {
     color: 'white',
-    fontSize: 30,
+    fontSize:25,
     borderBottomWidth: 3,
     borderColor: 'white',
     padding: 10,
@@ -246,4 +292,74 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
+  // Viewed
+  viewedSection:{
+    backgroundColor:'white',
+
+  },
+  viewedSectionText:{
+    fontSize:25,
+    textAlign:'center',
+    padding:30,
+    color:'#193C47',
+    fontWeight:'600',
+  },
+  iconViewsContainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 20,
+  },
+  iconViewWrapper:{
+  alignItems: 'center',
+  marginBottom:50,
+},
+iconViewsCircle:{
+  width: 80,
+  height: 80,
+  borderRadius: 50,
+  borderWidth:3,
+  borderColor:'#193C47',
+  // backgroundColor: 'black',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // marginBottom: 5,
+  marginHorizontal:'2%',
+},
+iconImage:{
+  width:100,
+  height:100,
+  borderRadius:50,
+},
+activePollsContainer: {
+  position: 'relative',
+},
+activePolls: {
+  backgroundColor: '#193C47',
+  padding: 50,
+  marginHorizontal: 70,
+  marginBottom: 70,
+  borderRadius: 50,
+},
+textActivePoll: {
+  color: 'white',
+  fontSize: 20,
+},
+innertextActivePoll: {
+  color: 'white',
+  fontSize: 15,
+  fontStyle: 'italic',
+  marginTop: 3,
+},
+detailIcon: {
+  position: 'absolute',
+  bottom: 100, 
+  right: 90, 
+  width: 80,
+    height: 80,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+
 });
