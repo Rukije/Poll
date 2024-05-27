@@ -5,12 +5,13 @@
     "scheme": "notJustPolls",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/poll.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/poll.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "width":"50%"
     },
     "ios": {
       "supportsTablet": true
@@ -22,7 +23,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/poll.png"
     },
     "plugins": [
       "expo-secure-store"

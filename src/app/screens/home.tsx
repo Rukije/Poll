@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated } from 'react-native';
 import { Stack } from 'expo-router';
 
 interface DataItem {
@@ -9,13 +9,33 @@ interface DataItem {
 }
 
 const data: DataItem[] = [
-  { id: '1', image: require('../../assets/images/polling.png'), description: 'Lorem ipsum 1' },
-  { id: '2', image: require('../../assets/images/polling.png'), description: 'Lorem ipsum 2' },
+  { id: '1', image: require('../../assets/images/news1.webp'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual ' },
+  { id: '2', image: require('../../assets/images/news2.jpg'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder' },
+  // { id: '2', image: require('../../assets/images/polling.png'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder' },
+
 ];
 
 export default function Home() {
+  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const translateYAnim = useRef(new Animated.Value(-20)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000, 
+        useNativeDriver: true, 
+      }),
+      Animated.timing(translateYAnim, {
+        toValue: 0, 
+        duration: 1000,
+        useNativeDriver: true, 
+      }),
+    ]).start();
+  }, [fadeAnim, translateYAnim]);
+
   const renderItemImage = ({ item }: { item: DataItem }) => (
-    <View style={styles.column}>
+    <Animated.View style={[styles.column, { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }]}>
       <View style={styles.imgContainer}>
         <Image
           source={item.image}
@@ -23,7 +43,7 @@ export default function Home() {
         />
         <Text style={styles.infoText}>{item.description}</Text>
       </View>
-    </View>
+    </Animated.View>
   );
 
   return (
@@ -40,6 +60,7 @@ export default function Home() {
           },
         }}
       />
+       <Animated.View style={[styles.column, { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }]}>
       <View style={styles.container}>
         <View style={styles.voted}>
           <Text style={styles.votedText}>1000 Votes</Text>
@@ -52,10 +73,11 @@ export default function Home() {
           data={data}
           renderItem={renderItemImage}
           keyExtractor={(item) => item.id}
-          horizontal
+          showsVerticalScrollIndicator
           contentContainerStyle={styles.flatListContainer}
         />
       </View>
+      </Animated.View>
     </ScrollView>
   );
 }
@@ -71,6 +93,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    marginTop: 20,
     paddingBottom: 50,
   },
   voted: {
@@ -112,17 +135,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
     margin: 10,
+    borderWidth: 2,
+    borderColor: '#fff',
     borderRadius: 12,
   },
   image: {
     width: 150,
     height: 150,
+    borderRadius: 25,
     marginBottom: 10,
   },
   infoText: {
     color: 'white',
     textAlign: 'center',
     width: '50%', 
+    paddingVertical: 4,
     paddingHorizontal: 10,
   },
 });
