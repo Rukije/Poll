@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity } from 'react-native';
 import { Stack } from 'expo-router';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; // Import icons
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
 
 interface DataItem {
   id: string;
@@ -148,21 +148,17 @@ export default function Home() {
        
       </View>
       <View style={styles.activePollsContainer}>
-  <View style={styles.activePolls}>
-    <Text style={styles.textActivePoll}>12 Active Polls</Text>
-    <Text style={styles.innertextActivePoll}>Show Details</Text>
-  </View>
-  <View style={styles.detailIcon}>
-    <FontAwesome5 name="forward" size={32} color="white" />
-  </View>
+         <View style={styles.activePolls}>
+            <Text style={styles.textActivePoll}>12 Active Polls</Text>
+            <Text style={styles.innertextActivePoll}>Show Details</Text>
+         </View>
+      <View style={styles.detailIcon}>
+         <FontAwesome5 name="forward" size={32} color="white" />
+      </View>
 </View>
 
       </View>
-      
-          
-     
 
-      
     </ScrollView>
   );
 }
@@ -260,25 +256,25 @@ const styles = StyleSheet.create({
     padding: 20,
     letterSpacing:10,
   },
-  voteSectionText: {
+voteSectionText: {
     color: 'white',
     fontSize: 40,
   },
-  voteSectionText2: {
+voteSectionText2: {
     color: 'yellow',
     fontStyle: 'italic',
     textAlign: 'center',
   },
-  iconContainer: {
+iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 20,
   },
-  iconWrapper: {
+iconWrapper: {
     alignItems: 'center',
     marginBottom:80,
   },
-  iconCircle: {
+iconCircle: {
     width: 80,
     height: 80,
     borderRadius: 50,
@@ -288,28 +284,28 @@ const styles = StyleSheet.create({
     // marginBottom: 5,
     margin:'1%',
   },
-  iconLabel: {
+iconLabel: {
     color: 'white',
     fontSize: 16,
   },
   // Viewed
-  viewedSection:{
+viewedSection:{
     backgroundColor:'white',
 
   },
-  viewedSectionText:{
+viewedSectionText:{
     fontSize:25,
     textAlign:'center',
     padding:30,
     color:'#193C47',
     fontWeight:'600',
   },
-  iconViewsContainer:{
+iconViewsContainer:{
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 20,
   },
-  iconViewWrapper:{
+iconViewWrapper:{
   alignItems: 'center',
   marginBottom:50,
 },
@@ -355,11 +351,10 @@ detailIcon: {
   bottom: 100, 
   right: 90, 
   width: 80,
-    height: 80,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
+  height: 80,
+  borderRadius: 50,
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  justifyContent: 'center',
+  alignItems: 'center',
 },
-
 });
