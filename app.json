@@ -10,8 +10,7 @@
     "splash": {
       "image": "./assets/poll.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
-      "width":"50%"
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true

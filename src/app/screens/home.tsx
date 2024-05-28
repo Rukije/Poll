@@ -109,7 +109,7 @@ export default function Home() {
         </View>
         <View style={styles.iconWrapper}>
           <View style={styles.iconCircle}>
-            <FontAwesome5 name="art" size={32} color="white" />
+            <FontAwesome5 name="camera" size={32} color="white" />
           </View>
           <Text style={styles.iconLabel}>Art</Text>
         </View>
