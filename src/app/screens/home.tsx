@@ -33,6 +33,7 @@ export default function Home() {
         duration: 1400, 
         useNativeDriver: true,
       }),
+      
     ]).start();
   }, [fadeAnim, translateYAnim]);
 
@@ -155,7 +156,8 @@ export default function Home() {
       <View style={styles.detailIcon}>
          <FontAwesome5 name="forward" size={32} color="white" />
       </View>
-</View>
+      </View>
+
 
       </View>
 

@@ -1,5 +1,7 @@
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image,ScrollView} from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { Stack } from 'expo-router';
+
 
 const Statistics = () => {
   const [products, setProducts] = useState([]);
@@ -20,6 +22,19 @@ const Statistics = () => {
   };
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+    <Stack.Screen
+      options={{
+        title: 'Search based on category',
+        headerStyle: {
+          backgroundColor: '#193C47',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    />
     <View style={styles.container}>
        <Text style={styles.topTitle}>Produktet me te shitura nga kategoria Shopping</Text>
       <FlatList
@@ -35,6 +50,7 @@ const Statistics = () => {
         columnWrapperStyle={styles.columnWrapper}
       />
     </View>
+    </ScrollView>
   );
 };
 
@@ -44,7 +60,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#193C47',
+  },
+  scrollViewContainer: {
+    flexGrow: 1,
+    backgroundColor: '#193C47',
+    alignItems: 'center',
+    paddingVertical: 20,
   },
   columnWrapper: {
     justifyContent: 'space-between',
@@ -64,6 +86,7 @@ const styles = StyleSheet.create({
   },
   topTitle:{
     padding:20,
+    color:'#fff',
   },
   image: {
     height: 150,
