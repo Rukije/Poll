@@ -134,7 +134,7 @@ export default function Category() {
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
           <View style={styles.pollContainer}>
-            <Link href={`/polls/${item.id}`} style={styles.link}>
+             <Link href={{ pathname: `/polls/${item.id}`, params: { category: item.title } }} style={styles.link}>
               <View style={styles.pollContent}>
                 <Icon name={getIconName(item.title)} size={24} color="white" style={styles.icon} />
                 <Text style={styles.pollTitle}>
