@@ -1,5 +1,5 @@
 import { useLocalSearchParams, Stack } from "expo-router";
-import { View, Text, StyleSheet, Pressable, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Pressable, Button, ScrollView, Modal,Image} from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { useState, useEffect } from "react";
 import { categoryData, QuestionType } from "../../data/categoryData"; 
@@ -8,6 +8,7 @@ export default function PollDetails() {
   const { id, category } = useLocalSearchParams<{ id: string; category: string }>();
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
   const [polls, setPolls] = useState<QuestionType[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     if (category && categoryData[category]) {
@@ -16,11 +17,15 @@ export default function PollDetails() {
   }, [category]);
 
   const submit = () => {
-    console.warn('Submit', selectedOptions);
+    setIsModalVisible(true);
   };
 
   const handleOptionSelect = (question: string, option: string) => {
     setSelectedOptions({ ...selectedOptions, [question]: option });
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -50,11 +55,37 @@ export default function PollDetails() {
                 />
                 <Text style={styles.optionTextContainer}>{option}</Text>
               </Pressable>
+              
             ))}
           </View>
         </View>
       ))}
-      <Button onPress={submit} title="Submit" color="#193C47" />
+<Pressable>
+         <Text onPress={submit} style={styles.submitButton}>Submit</Text>
+      </Pressable>     
+       <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+        {/* <Image
+          style={styles.pollGif}
+        source={require('../../assets/images/poll.gif')}
+      /> */}
+          <Text style={styles.modalText}>Faleminderit qe u pergjigjet :)!
+          </Text>
+          {/* <Image
+          style={styles.pollGif}
+        source={require('../../assets/images/poll.gif')}
+      /> */}
+          <Pressable>
+         <Text onPress={closeModal} style={styles.closeButton} >Close</Text>
+      </Pressable> 
+       
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -86,4 +117,45 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: 'white',
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius:15,
+  },
+    submitButton:{
+    backgroundColor:"#193C47",
+    color:"white",
+    textAlign:'center',
+    padding:20,
+    width:150,
+    display:'flex',
+    margin:'auto'
+},
+  modalText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    backgroundColor:"white",
+    padding:85,
+    color: '#193C47',
+    borderRadius:15,
+    marginBottom: 20,
+  },
+  pollGif:{
+    width:100,
+    height:100,
+  },
+  closeButton:{
+    backgroundColor:"#193C47",
+    color:"white",
+    textAlign:'center',
+    padding:10,
+    width:150,
+    display:'flex',
+    margin:'auto',
+    borderWidth:3,
+    borderRadius:15,
+    borderColor:'white',
+  }
 });
