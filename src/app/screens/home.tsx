@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity } from 'react-native';
 import { Stack } from 'expo-router';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import styled from 'styled-components/native';
 
 interface DataItem {
   id: string;
@@ -53,6 +54,34 @@ export default function Home() {
     </Animated.View>
   );
   // end news
+  const TriangleWrapper = styled.View`
+  width: 450px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Triangle = styled.View`
+  width: 0;
+  height: 0;
+  border-left-width: 50px;
+  border-right-width:450px;
+  border-bottom-width: 250px;
+
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: #193C47;
+`;
+
+const OverlayText = styled.Text`
+  position: absolute;
+  font-size:40px;
+  color: #fff;
+  fontWeight:bold;
+  left:80;
+  marginTop:30;
+  width:120;
+`;
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -157,8 +186,14 @@ export default function Home() {
          <FontAwesome5 name="forward" size={32} color="white" />
       </View>
       </View>
-
-
+      <View>  
+      <TriangleWrapper>
+        <Triangle />
+        <Image source={require('../../assets/images/light.png')} style={styles.iconTriangle} />
+        <Text style={styles.descriptionText}>Statistics is the study and manipulation of data, including ways </Text>
+      </TriangleWrapper>
+  
+      </View>
       </View>
 
     </ScrollView>
@@ -303,10 +338,11 @@ viewedSectionText:{
     fontWeight:'600',
   },
 iconViewsContainer:{
+    flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 20,
-  },
+    margin: 50,
+},
 iconViewWrapper:{
   alignItems: 'center',
   marginBottom:50,
@@ -324,8 +360,8 @@ iconViewsCircle:{
   marginHorizontal:'2%',
 },
 iconImage:{
-  width:100,
-  height:100,
+  width:80,
+  height:80,
   borderRadius:50,
 },
 activePollsContainer: {
@@ -359,4 +395,24 @@ detailIcon: {
   justifyContent: 'center',
   alignItems: 'center',
 },
+infoText2:{
+  color:'black',
+},
+iconTriangle:{
+  position:'absolute',
+  width:140,
+  height:140,
+  left:50,
+  bottom:20,
+},
+descriptionText:{
+  position:'absolute',
+  color:'#193C47',
+  fontSize:20,
+  width:220,
+  right:40,
+ top:18,
+ fontWeight:'bold',
+ fontStyle:'italic',
+}
 });

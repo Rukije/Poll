@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     padding:20,
     width:150,
+    justifyContent:'center',
     display:'flex',
     margin:'auto'
 },

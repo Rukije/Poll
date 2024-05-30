@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigationState, useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import LoginScreen from '.';
+import { StyleSheet } from 'react-native';
 
 export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const routes = useNavigationState(state => state?.routes);
-
-  // ckeck nese route ne fillim eshte login
-  // const currentRoute = routes?.[routes.length - 1]?.name;
 
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
-  if (!isLoggedIn) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
+  // if (!isLoggedIn) {
+  //   return <LoginScreen onLogin={handleLogin} />;
+  // }
 
   return (
     <Tabs
@@ -33,14 +29,19 @@ export default function RootLayout() {
             iconName = focused ? 'list' : 'list-outline';
           } else if (route.name === 'screens/statistics') {
             iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+          }else if (route.name === 'screens/wishlist') {
+            iconName = focused ? 'heart' : 'heart-outline';
           } else {
             return null;
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#193C47',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#5e767e',
+        tabBarInactiveTintColor: 'white',
+        tabBarStyle: styles.tabBar, 
+        tabBarLabelStyle: styles.tabBarLabel, 
+        tabBarIconStyle: styles.tabBarIcon,
       })}
     >
       <Tabs.Screen 
@@ -71,6 +72,30 @@ export default function RootLayout() {
           tabBarLabel: 'Statistics',
         }} 
       />
+      <Tabs.Screen 
+        name="screens/wishlist" 
+        options={{ 
+          title: 'Wishlist',
+          tabBarLabel: 'WishList',
+        }} 
+      />
     </Tabs>
+    
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#193C47', 
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    height: 60, 
+  },
+  tabBarLabel: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  tabBarIcon: {
+    marginTop: 5,
+  },
+});
