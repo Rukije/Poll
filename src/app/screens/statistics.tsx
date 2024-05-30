@@ -1,10 +1,12 @@
-import { FlatList, StyleSheet, Text, View, Image,ScrollView} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
-
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useWishList } from '../../contexts/WishListContext';
 
 const Statistics = () => {
   const [products, setProducts] = useState([]);
+  const { addToWishList } = useWishList(); 
 
   useEffect(() => {
     getProducts();
@@ -21,35 +23,43 @@ const Statistics = () => {
       });
   };
 
+  const handleAddToWishList = (item) => {
+    addToWishList(item);
+    console.log(`${item.title} u shtua`);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-    <Stack.Screen
-      options={{
-        title: 'Search based on category',
-        headerStyle: {
-          backgroundColor: '#193C47',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}
-    />
-    <View style={styles.container}>
-       <Text style={styles.topTitle}>Produktet me te shitura nga kategoria Shopping</Text>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={products}
-        numColumns={2}
-        renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Text style={styles.title}>{item.title}</Text>
-          </View>
-        )}
-        columnWrapperStyle={styles.columnWrapper}
+      <Stack.Screen
+        options={{
+          title: 'Search based on category',
+          headerStyle: {
+            backgroundColor: '#193C47',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
-    </View>
+      <View style={styles.container}>
+        <Text style={styles.topTitle}>Produktet me te shitura nga kategoria Shopping</Text>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={products}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <View style={styles.cardContainer}>
+              <Image source={{ uri: item.image }} style={styles.image} />
+              <Text style={styles.title}>{item.title}</Text>
+              <TouchableOpacity onPress={() => handleAddToWishList(item)} style={styles.wishlistButton}>
+                <Icon name="heart-outline" size={24} color="red" />
+              </TouchableOpacity>
+            </View>
+          )}
+          columnWrapperStyle={styles.columnWrapper}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -82,15 +92,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginVertical: 10,
-    flex: 0.48,  
+    flex: 0.48,
+    position: 'relative',
   },
-  topTitle:{
-    padding:20,
-    color:'#fff',
+  topTitle: {
+    padding: 20,
+    color: '#fff',
   },
   image: {
-    height: 150,
-    width: 150,
+    height: 120,
+    width: 120,
     borderRadius: 10,
   },
   title: {
@@ -99,5 +110,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 10,
     textAlign: 'center',
+  },
+  wishlistButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
