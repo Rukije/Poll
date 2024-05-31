@@ -28,7 +28,7 @@ const Statistics = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+    <ScrollView >
       <Stack.Screen
         options={{
           title: 'Questin',
@@ -59,7 +59,7 @@ const Statistics = () => {
           columnWrapperStyle={styles.columnWrapper}
         />
       </View>
-    </ScrollView>
+     </ScrollView> 
   );
 };
 

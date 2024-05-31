@@ -177,6 +177,7 @@ const OverlayText = styled.Text`
         </View>
        
       </View>
+      
       <View style={styles.activePollsContainer}>
          <View style={styles.activePolls}>
             <Text style={styles.textActivePoll}>12 Active Polls</Text>
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginTop: 20,
-    paddingBottom: 50,
+    paddingBottom: 120,
   },
   voted: {
     backgroundColor: 'white',
@@ -226,13 +227,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#193C47',
     fontWeight: 'bold',
-    fontFamily: 'Poetsen One',
   },
   genderVotesConatiner: {
     backgroundColor: '#5e767e',
     padding: 15,
     marginHorizontal: 10,
-    top: 10,
+    marginTop: 10,
     borderRadius: 5,
     width: '100%',
   },
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
   news: {
     color: 'white',
-    fontSize:25,
+    fontSize: 25,
     borderBottomWidth: 3,
     borderColor: 'white',
     padding: 10,
@@ -291,128 +291,133 @@ const styles = StyleSheet.create({
   },
   voteSection: {
     padding: 20,
-    letterSpacing:10,
+    letterSpacing: 1,
   },
-voteSectionText: {
+  voteSectionText: {
     color: 'white',
-    fontSize: 40,
-  },
-voteSectionText2: {
-    color: 'yellow',
-    fontStyle: 'italic',
+    fontSize: 32,
     textAlign: 'center',
   },
-iconContainer: {
+  voteSectionText2: {
+    color: 'yellow',
+    fontStyle: 'italic',
+  },
+  iconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     margin: 20,
   },
-iconWrapper: {
+  iconWrapper: {
     alignItems: 'center',
-    marginBottom:80,
+    marginBottom: 20,
   },
-iconCircle: {
+  iconCircle: {
     width: 80,
     height: 80,
     borderRadius: 50,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: 5,
-    margin:'1%',
+    margin: '1%',
   },
-iconLabel: {
+  iconLabel: {
     color: 'white',
     fontSize: 16,
   },
-  // Viewed
-viewedSection:{
-    backgroundColor:'white',
-
+  viewedSection: {
+    backgroundColor: 'white',
+    width: '100%',
+    padding: 20,
+    alignItems: 'center',
   },
-viewedSectionText:{
-    fontSize:25,
-    textAlign:'center',
-    padding:30,
-    color:'#193C47',
-    fontWeight:'600',
+  viewedSectionText: {
+    fontSize: 25,
+    textAlign: 'center',
+    color: '#193C47',
+    fontWeight: '600',
+    marginBottom: 20,
   },
-iconViewsContainer:{
-    flex:1,
+  iconViewsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 50,
-},
-iconViewWrapper:{
-  alignItems: 'center',
-  marginBottom:50,
-},
-iconViewsCircle:{
-  width: 80,
-  height: 80,
-  borderRadius: 50,
-  borderWidth:3,
-  borderColor:'#193C47',
-  // backgroundColor: 'black',
-  justifyContent: 'center',
-  alignItems: 'center',
-  // marginBottom: 5,
-  marginHorizontal:'2%',
-},
-iconImage:{
-  width:80,
-  height:80,
-  borderRadius:50,
-},
-activePollsContainer: {
-  position: 'relative',
-},
-activePolls: {
-  backgroundColor: '#193C47',
-  padding: 50,
-  marginHorizontal: 70,
-  marginBottom: 70,
-  borderRadius: 50,
-},
-textActivePoll: {
-  color: 'white',
-  fontSize: 20,
-},
-innertextActivePoll: {
-  color: 'white',
-  fontSize: 15,
-  fontStyle: 'italic',
-  marginTop: 3,
-},
-detailIcon: {
-  position: 'absolute',
-  bottom: 100, 
-  right: 90, 
-  width: 80,
-  height: 80,
-  borderRadius: 50,
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-infoText2:{
-  color:'black',
-},
-iconTriangle:{
-  position:'absolute',
-  width:140,
-  height:140,
-  left:50,
-  bottom:20,
-},
-descriptionText:{
-  position:'absolute',
-  color:'#193C47',
-  fontSize:20,
-  width:220,
-  right:40,
- top:18,
- fontWeight:'bold',
- fontStyle:'italic',
-}
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  iconViewWrapper: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  iconViewsCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    borderWidth: 3,
+    borderColor: '#193C47',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: '2%',
+  },
+  iconImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+  },
+  activePollsContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  activePolls: {
+    backgroundColor: '#193C47',
+    padding: 20,
+    borderRadius: 20,
+    width: '80%',
+    alignItems: 'center',
+  },
+  textActivePoll: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  innertextActivePoll: {
+    color: 'white',
+    fontSize: 15,
+    fontStyle: 'italic',
+    marginTop: 5,
+  },
+  detailIcon: {
+    marginTop: 10,
+  },
+  triangleWrapper: {
+    width: '80%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  triangle: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 50,
+    borderRightWidth: 50,
+    borderBottomWidth: 100,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: '#193C47',
+  },
+  iconTriangle: {
+    position: 'absolute',
+    width: 140,
+    height: 140,
+    left: 50,
+    bottom: 20,
+  },
+  descriptionText: {
+    position: 'absolute',
+    color: '#193C47',
+    fontSize: 20,
+    width: 220,
+    right: 40,
+    top: 18,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+  },
 });
+
