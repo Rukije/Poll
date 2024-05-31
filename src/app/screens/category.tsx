@@ -5,7 +5,6 @@ import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { setItem, getItem } from '../utils/AsyncStorage';
 // import Toast from 'react-native-toast-message'; 
-
 const polls = [
   { id: 1, title: 'Politike' },
   { id: 2, title: 'Art' },
@@ -134,7 +133,7 @@ export default function Category() {
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
           <View style={styles.pollContainer}>
-             <Link href={{ pathname: `/polls/${item.id}`, params: { category: item.title } }} style={styles.link}>
+             <Link href={{ pathname: `/screens/${item.id}`, params: { category: item.title } }} style={styles.link}>
               <View style={styles.pollContent}>
                 <Icon name={getIconName(item.title)} size={24} color="white" style={styles.icon} />
                 <Text style={styles.pollTitle}>

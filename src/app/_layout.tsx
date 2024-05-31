@@ -26,7 +26,7 @@ export default function RootLayout() {
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'screens/search') {
               iconName = focused ? 'search' : 'search-outline';
-            } else if (route.name === 'polls/category') {
+            } else if (route.name === 'screens/category') {
               iconName = focused ? 'list' : 'list-outline';
             } else if (route.name === 'screens/statistics') {
               iconName = focused ? 'stats-chart' : 'stats-chart-outline';
@@ -60,7 +60,7 @@ export default function RootLayout() {
           }} 
         />
         <Tabs.Screen 
-          name="polls/category" 
+          name="screens/category" 
           options={{ 
             title: 'Poll Details',
             tabBarLabel: 'Category',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#ddd',
     // height: 80, 
-    // width:500,
+    width:515,
   },
   tabBarLabel: {
     fontSize: 12,
