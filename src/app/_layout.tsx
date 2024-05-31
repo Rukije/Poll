@@ -3,8 +3,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import LoginScreen from '.';
 import { StyleSheet } from 'react-native';
-import { WishListProvider } from '../contexts/WishListContext'; // Correct import path to WishListContext
-
+import { SavedListProvider } from '../contexts/SaveListContext';
 export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -12,12 +11,12 @@ export default function RootLayout() {
     setIsLoggedIn(true);
   };
 
-  // if (!isLoggedIn) {
-  //   return <LoginScreen onLogin={handleLogin} />;
-  // }
+  if (!isLoggedIn) {
+    return <LoginScreen onLogin={handleLogin} />;
+  }
 
   return (
-    <WishListProvider>
+    <SavedListProvider>
       <Tabs
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -31,8 +30,8 @@ export default function RootLayout() {
               iconName = focused ? 'list' : 'list-outline';
             } else if (route.name === 'screens/statistics') {
               iconName = focused ? 'stats-chart' : 'stats-chart-outline';
-            } else if (route.name === 'screens/wishlist') {
-              iconName = focused ? 'heart' : 'heart-outline';
+            } else if (route.name === 'screens/savedList') {
+              iconName = focused ? 'bookmark' : 'bookmark-outline';
             } else {
               return null;
             }
@@ -70,19 +69,19 @@ export default function RootLayout() {
         <Tabs.Screen 
           name="screens/statistics" 
           options={{ 
-            title: 'Statistics',
-            tabBarLabel: 'Statistics',
+            title: 'Questions',
+            tabBarLabel: 'Questions',
           }} 
         />
         <Tabs.Screen 
-          name="screens/wishlist" 
+          name="screens/savedList" 
           options={{ 
-            title: 'Wishlist',
-            tabBarLabel: 'WishList',
+            title: 'Saved',
+            tabBarLabel: 'Saved',
           }} 
         />
       </Tabs>
-    </WishListProvider>
+    </SavedListProvider>
   );
 }
 
@@ -91,7 +90,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#193C47', 
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    height: 60, 
+    // height: 80, 
+    // width:500,
   },
   tabBarLabel: {
     fontSize: 12,

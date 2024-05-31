@@ -2,11 +2,10 @@ import { FlatList, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity }
 import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useWishList } from '../../contexts/WishListContext';
-
+import { useSavedList } from '../../contexts/SaveListContext';
 const Statistics = () => {
   const [products, setProducts] = useState([]);
-  const { addToWishList } = useWishList(); 
+  const { addToSavedList } = useSavedList(); 
 
   useEffect(() => {
     getProducts();
@@ -23,8 +22,8 @@ const Statistics = () => {
       });
   };
 
-  const handleAddToWishList = (item) => {
-    addToWishList(item);
+  const handleAddToSavedList = (item) => {
+    addToSavedList(item);
     console.log(`${item.title} u shtua`);
   };
 
@@ -32,7 +31,7 @@ const Statistics = () => {
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <Stack.Screen
         options={{
-          title: 'Search based on category',
+          title: 'Questin',
           headerStyle: {
             backgroundColor: '#193C47',
           },
@@ -43,17 +42,17 @@ const Statistics = () => {
         }}
       />
       <View style={styles.container}>
-        <Text style={styles.topTitle}>Produktet me te shitura nga kategoria Shopping</Text>
+        <Text style={styles.topTitle}>Pyetje me te kerkuara</Text>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={products}
           numColumns={2}
           renderItem={({ item }) => (
             <View style={styles.cardContainer}>
-              <Image source={{ uri: item.image }} style={styles.image} />
-              <Text style={styles.title}>{item.title}</Text>
-              <TouchableOpacity onPress={() => handleAddToWishList(item)} style={styles.wishlistButton}>
-                <Icon name="heart-outline" size={24} color="red" />
+              {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
+              <Text style={styles.title}>{item.title}?</Text>
+              <TouchableOpacity onPress={() => handleAddToSavedList(item)} style={styles.SavedlistButton}>
+                <Icon name="bookmark-outline" size={24} color="#193C47" />
               </TouchableOpacity>
             </View>
           )}
@@ -92,11 +91,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginVertical: 10,
+    width:'50%',
     flex: 0.48,
     position: 'relative',
   },
   topTitle: {
     padding: 20,
+    textAlign:'center',
     color: '#fff',
   },
   image: {
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
-  wishlistButton: {
+  SavedlistButton: {
     position: 'absolute',
     top: 10,
     right: 10,

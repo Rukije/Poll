@@ -1,16 +1,22 @@
-// src/screens/wishlist.tsx
-import { ScrollView, StyleSheet, Text, View, Image, FlatList } from 'react-native';
+// src/screens/Savedlist.tsx
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
-import { useWishList } from '../../contexts/WishListContext';
-const WishList = () => {
-  const { wishlist } = useWishList(); 
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useSavedList } from '../../contexts/SaveListContext';
+
+const SavedList = () => {
+  const { Savedlist, removeFromSavedList } = useSavedList(); 
+
+  const handleRemove = (item) => {
+    removeFromSavedList(item);
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <Stack.Screen
         options={{
-          title: 'My WishList',
+          title: 'Saved Question',
           headerStyle: {
             backgroundColor: '#193C47',
           },
@@ -21,15 +27,17 @@ const WishList = () => {
         }}
       />
       <View style={styles.container}>
-        <Text style={styles.topTitle}>My Wishlist</Text>
+        <Text style={styles.topTitle}>Saved Questions</Text>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={wishlist}
+          data={Savedlist}
           numColumns={2}
           renderItem={({ item }) => (
             <View style={styles.cardContainer}>
-              <Image source={{ uri: item.image }} style={styles.image} />
-              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.title}>{item.title} ?</Text>
+              <TouchableOpacity style={styles.SavedlistButton} onPress={() => handleRemove(item)}>
+                <Icon name="bookmark" size={24} color="#193C47" />
+              </TouchableOpacity>
             </View>
           )}
           columnWrapperStyle={styles.columnWrapper}
@@ -39,12 +47,12 @@ const WishList = () => {
   );
 };
 
-export default WishList;
+export default SavedList;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 2,
     backgroundColor: '#193C47',
   },
   scrollViewContainer: {
@@ -72,11 +80,7 @@ const styles = StyleSheet.create({
   topTitle: {
     padding: 20,
     color: '#fff',
-  },
-  image: {
-    height: 120,
-    width: 120,
-    borderRadius: 10,
+    textAlign:'center',
   },
   title: {
     fontSize: 16,
@@ -84,5 +88,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 10,
     textAlign: 'center',
+  },
+  SavedlistButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
