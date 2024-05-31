@@ -32,6 +32,8 @@ export default function RootLayout() {
               iconName = focused ? 'stats-chart' : 'stats-chart-outline';
             } else if (route.name === 'screens/savedList') {
               iconName = focused ? 'bookmark' : 'bookmark-outline';
+            }else if (route.name === 'screens/profile') {
+              iconName = focused ? 'man' : 'man-outline';
             } else {
               return null;
             }
@@ -78,6 +80,14 @@ export default function RootLayout() {
           options={{ 
             title: 'Saved',
             tabBarLabel: 'Saved',
+          }} 
+        />
+     
+      <Tabs.Screen 
+          name="screens/profile" 
+          options={{ 
+            title: 'Profile',
+            tabBarLabel: 'Profile',
           }} 
         />
       </Tabs>
