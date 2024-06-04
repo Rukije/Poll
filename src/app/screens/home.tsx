@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef,useState} from 'react';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity,TextInput,Button} from 'react-native';
 import { Stack } from 'expo-router';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
 import styled from 'styled-components/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 interface DataItem {
   id: string;
@@ -18,9 +19,13 @@ const data: DataItem[] = [
   { id: '3', image: require('../../assets/images/polling.png'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visualr', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Test Test :)') },
 ];
 
+// const handleButtonPress = () => {
+//   Alert.alert('Button Pressed', `You typed: ${text}`);
+// };
 export default function Home() {
   const fadeAnim = useRef(new Animated.Value(0)).current; 
   const translateYAnim = useRef(new Animated.Value(-20)).current; 
+  const [text, setText] = useState('');
 
   useEffect(() => {
     Animated.parallel([
@@ -99,6 +104,22 @@ const OverlayText = styled.Text`
       />
       {/* Votuesit */}
       <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={setText}
+          value={text}
+          placeholder="Kerko..."
+          placeholderTextColor="white"
+        />
+        <FontAwesome name="search" size={24} color="white" style={styles.icon} />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Politike</Text>
+        <Text style={styles.text}>Art</Text>
+        <Text style={styles.text}>Sport</Text>
+      </View>
+
         <View style={styles.voted}>
           <Text style={styles.votedText}>1000 Vota</Text>
           <View style={styles.genderVotesConatiner}>
@@ -174,8 +195,7 @@ const OverlayText = styled.Text`
         </View>
         <View style={styles.iconWrapper}>
           <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
-        </View>
-       
+        </View>       
       </View>
       
       <View style={styles.activePollsContainer}>
@@ -214,6 +234,53 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     paddingBottom: 120,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  icon: {
+    marginLeft: 8,
+    borderRadius:25,
+    padding:10,
+    backgroundColor:'white',
+    color:'#193C47',
+    bottom:9,
+  },
+  textContainer: {
+    flexDirection: 'row',
+  },
+  text: {
+    marginHorizontal: 10, 
+    fontSize:18,
+    color: 'white',
+    borderWidth:3,
+    borderColor:'white',
+    borderRadius:10,
+    paddingHorizontal:30,
+    paddingVertical: 6, 
+    marginBottom:20,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 8,
+  },
+  input: {
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 3,
+    borderRadius:15,
+    paddingHorizontal: 8,
+    width: 300,
+    color:'white',
+    marginBottom: 16,
+  },
+  displayText: {
+    fontSize: 16,
+    marginTop: 16,
   },
   voted: {
     backgroundColor: 'white',
