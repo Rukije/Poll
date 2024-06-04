@@ -211,7 +211,7 @@ const OverlayText = styled.Text`
       <TriangleWrapper>
         <Triangle />
         <Image source={require('../../assets/images/light.png')} style={styles.iconTriangle} />
-        <Text style={styles.descriptionText}>Statistics is the study and manipulation of data, including ways </Text>
+        {/* <Text style={styles.descriptionText}>Statistics is the study and manipulation of data, including ways </Text> */}
       </TriangleWrapper>
   
       </View>
@@ -357,7 +357,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   voteSection: {
-    padding: 20,
+    bottom:50,
+    padding: 1,
     letterSpacing: 1,
   },
   voteSectionText: {
@@ -386,10 +387,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: '1%',
+    bottom:25,
+
   },
   iconLabel: {
     color: 'white',
     fontSize: 16,
+    bottom:25,
+
   },
   viewedSection: {
     backgroundColor: 'white',
@@ -403,6 +408,7 @@ const styles = StyleSheet.create({
     color: '#193C47',
     fontWeight: '600',
     marginBottom: 20,
+
   },
   iconViewsContainer: {
     flexDirection: 'row',

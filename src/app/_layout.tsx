@@ -11,9 +11,9 @@ export default function RootLayout() {
     setIsLoggedIn(true);
   };
 
-  // if (!isLoggedIn) {
-  //   return <LoginScreen onLogin={handleLogin} />;
-  // }
+  if (!isLoggedIn) {
+    return <LoginScreen onLogin={handleLogin} />;
+  }
 
   return (
     <SavedListProvider>
