@@ -1,9 +1,8 @@
-import React, { useEffect, useRef,useState} from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity,TextInput,Button} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity, TextInput } from 'react-native';
 import { Stack } from 'expo-router';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { MaterialIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import styled from 'styled-components/native';
-import { FontAwesome } from '@expo/vector-icons';
 
 interface DataItem {
   id: string;
@@ -13,44 +12,79 @@ interface DataItem {
   buttonAction: () => void;
 }
 
-const data: DataItem[] = [
-  { id: '2', image: require('../../assets/images/news2.jpg'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visualr', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Test Test :)') },
-  { id: '1', image: require('../../assets/images/news1.webp'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual ', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Test Test :)') },
-  { id: '3', image: require('../../assets/images/polling.png'), description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visualr', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Test Test :)') },
+interface Category {
+  id: string;
+  name: string;
+  items: DataItem[];
+}
+
+const data: Category[] = [
+  {
+    id: '1',
+    name: 'Politike',
+    items: [
+      { id: '1', image: require('../../assets/images/news1.webp'), description: 'Politike news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Politike Test :)') },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Sport',
+    items: [
+      { id: '2', image: require('../../assets/images/news2.jpg'), description: 'Sport news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Sport Test :)') },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Art',
+    items: [
+      { id: '3', image: require('../../assets/images/polling.png'), description: 'Art news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Art Test :)') },
+    ],
+  },
+  {
+    id: '4',
+    name: 'Test',
+    items: [
+      { id: '4', image: require('../../assets/images/polling.png'), description: 'Art news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Art Test :)') },
+    ],
+  },
 ];
 
-// const handleButtonPress = () => {
-//   Alert.alert('Button Pressed', `You typed: ${text}`);
-// };
 export default function Home() {
-  const fadeAnim = useRef(new Animated.Value(0)).current; 
-  const translateYAnim = useRef(new Animated.Value(-20)).current; 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const translateYAnim = useRef(new Animated.Value(-20)).current;
   const [text, setText] = useState('');
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fadeAnim, {
-        toValue: 1, 
-        duration: 1400, 
-        useNativeDriver: true, 
-      }),
-      Animated.timing(translateYAnim, {
-        toValue: 0, 
-        duration: 1400, 
+        toValue: 1,
+        duration: 1400,
         useNativeDriver: true,
       }),
-      
+      Animated.timing(translateYAnim, {
+        toValue: 0,
+        duration: 1400,
+        useNativeDriver: true,
+      }),
     ]).start();
   }, [fadeAnim, translateYAnim]);
 
-  // News
+  useEffect(() => {
+    if (text) {
+      const newFilteredCategories = data.filter(category =>
+        category.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredCategories(newFilteredCategories);
+    } else {
+      setFilteredCategories([]);
+    }
+  }, [text]);
+
   const renderItemImage = ({ item }: { item: DataItem }) => (
-    <Animated.View style={[ { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }]}>
+    <Animated.View style={[{ opacity: fadeAnim, transform: [{ translateY: translateYAnim }] }]}>
       <View style={styles.imgContainer}>
-        <Image
-          source={item.image}
-          style={styles.image}
-        />
+        <Image source={item.image} style={styles.image} />
         <Text style={styles.infoText}>{item.description}</Text>
         <TouchableOpacity style={styles.button} onPress={item.buttonAction}>
           <Text style={styles.buttonText}>{item.buttonLabel}</Text>
@@ -58,35 +92,7 @@ export default function Home() {
       </View>
     </Animated.View>
   );
-  // end news
-  const TriangleWrapper = styled.View`
-  width: 450px;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-`;
 
-const Triangle = styled.View`
-  width: 0;
-  height: 0;
-  border-left-width: 50px;
-  border-right-width:450px;
-  border-bottom-width: 250px;
-
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: #193C47;
-`;
-
-const OverlayText = styled.Text`
-  position: absolute;
-  font-size:40px;
-  color: #fff;
-  fontWeight:bold;
-  left:80;
-  marginTop:30;
-  width:120;
-`;
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -94,7 +100,7 @@ const OverlayText = styled.Text`
         options={{
           title: 'Home',
           headerStyle: {
-            backgroundColor: '#193C47',
+            backgroundColor: '#193c47',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -102,48 +108,44 @@ const OverlayText = styled.Text`
           },
         }}
       />
-      {/* Votuesit */}
       <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setText}
-          value={text}
-          placeholder="Kerko..."
-          placeholderTextColor="white"
-        />
-        <FontAwesome name="search" size={24} color="white" style={styles.icon} />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>Politike</Text>
-        <Text style={styles.text}>Art</Text>
-        <Text style={styles.text}>Sport</Text>
-      </View>
-
-        <View style={styles.voted}>
-          <Text style={styles.votedText}>1000 Vota</Text>
-          <View style={styles.genderVotesConatiner}>
-            <Text style={styles.genderVotes}>570 Femra</Text>
-            <Text style={styles.genderVotes}>330 Meshkuj</Text>
-          </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setText}
+            value={text}
+            placeholder="Kerko..."
+            placeholderTextColor="white"
+          />
+          <FontAwesome name="search" size={24} color="white" style={styles.icon} />
         </View>
+        {text.length > 0 && (
+          <View style={styles.textContainer}>
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((category) => (
+                <Text key={category.id} style={styles.text}>{category.name}</Text>
+              ))
+            ) : (
+              <Text style={styles.noCategoryText}>No category found</Text>
+            )}
+          </View>
+        )}
         <View>
           <Text style={styles.news}>News</Text>
         </View>
         <FlatList
-          data={data}
+          data={data.flatMap(category => category.items)}
           renderItem={renderItemImage}
           keyExtractor={(item) => item.id}
-          horizontal={true} 
-          showsHorizontalScrollIndicator={false} 
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContainer}
         />
       </View>
-            {/* Votuesit */}
-
-      {/*  lets get started on voting section  */}
       <View style={styles.voteSection}>
-        <Text style={styles.voteSectionText}>Let's get starting on <Text style={styles.voteSectionText2}>VOTING !</Text></Text>
+        <Text style={styles.voteSectionText}>
+          Let's get starting on <Text style={styles.voteSectionText2}>VOTING !</Text>
+        </Text>
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.iconWrapper}>
@@ -166,60 +168,42 @@ const OverlayText = styled.Text`
         </View>
         <View style={styles.iconWrapper}>
           <View style={styles.iconCircle}>
-            <MaterialIcons name="computer" size={32} color="white" />
+              <MaterialIcons name="computer" size={32} color="white" />
           </View>
           <Text style={styles.iconLabel}>Teknologji</Text>
         </View>
       </View>
-      {/*  lets get started on voting section  */}
-
-      {/* last viewed */}
       <View style={styles.viewedSection}>
-        <Text style={styles.viewedSectionText}>Last Viewed </Text>
-      
-      <View style={styles.iconViewsContainer}>
-        {/* <View style={styles.iconViewWrapper}>
-          <View style={styles.iconViewsCircle}>
-            <MaterialIcons name="man" size={32} color="#193C47" />
+        <Text style={styles.viewedSectionText}>Last Viewed</Text>
+        <View style={styles.iconViewsContainer}>
+          <View style={styles.iconWrapper}>
+            <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
           </View>
-          <Text style={styles.iconLabel}>Politikë</Text>
-        </View> */}
-        <View style={styles.iconWrapper}>
-          <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+          <View style={styles.iconWrapper}>
+            <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+          </View>
+          <View style={styles.iconWrapper}>
+            <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+          </View>
+          <View style={styles.iconWrapper}>
+            <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+          </View>
         </View>
-        <View style={styles.iconWrapper}>
-          <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
-        </View>
-        <View style={styles.iconWrapper}>
-        <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
-        </View>
-        <View style={styles.iconWrapper}>
-          <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
-        </View>       
-      </View>
-      
-      <View style={styles.activePollsContainer}>
-         <View style={styles.activePolls}>
+        <View style={styles.activePollsContainer}>
+          <View style={styles.activePolls}>
             <Text style={styles.textActivePoll}>12 Active Polls</Text>
             <Text style={styles.innertextActivePoll}>Show Details</Text>
-         </View>
-      <View style={styles.detailIcon}>
-         <FontAwesome5 name="forward" size={32} color="white" />
+          </View>
+          <View style={styles.detailIcon}>
+            <FontAwesome5 name="forward" size={32} color="white" />
+          </View>
+        </View>
+       
       </View>
-      </View>
-      <View>  
-      <TriangleWrapper>
-        <Triangle />
-        <Image source={require('../../assets/images/light.png')} style={styles.iconTriangle} />
-        {/* <Text style={styles.descriptionText}>Statistics is the study and manipulation of data, including ways </Text> */}
-      </TriangleWrapper>
-  
-      </View>
-      </View>
-
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
@@ -263,6 +247,10 @@ const styles = StyleSheet.create({
     paddingHorizontal:30,
     paddingVertical: 6, 
     marginBottom:20,
+  },
+  noCategoryText:{
+    color:'red',
+    fontSize:15,
   },
   label: {
     fontSize: 18,
