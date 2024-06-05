@@ -70,18 +70,10 @@ export default function PollDetails() {
         onRequestClose={closeModal}
       >
         <View style={styles.modalContainer}>
-        {/* <Image
-          style={styles.pollGif}
-        source={require('../../assets/images/poll.gif')}
-      /> */}
           <Text style={styles.modalText}>Faleminderit qe u pergjigjet :)!
           </Text>
-          {/* <Image
-          style={styles.pollGif}
-        source={require('../../assets/images/poll.gif')}
-      /> */}
           <Pressable>
-         <Text onPress={closeModal} style={styles.closeButton} >Close</Text>
+         <Text onPress={closeModal} style={styles.closeButton}>Close</Text>
       </Pressable> 
        
         </View>

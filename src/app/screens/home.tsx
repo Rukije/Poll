@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity, TextInput } from 'react-native';
 import { Stack } from 'expo-router';
 import { MaterialIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
-import styled from 'styled-components/native';
+import data from '../../data/category';
 
 interface DataItem {
   id: string;
@@ -17,37 +17,6 @@ interface Category {
   name: string;
   items: DataItem[];
 }
-
-const data: Category[] = [
-  {
-    id: '1',
-    name: 'Politike',
-    items: [
-      { id: '1', image: require('../../assets/images/news1.webp'), description: 'Politike news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Politike Test :)') },
-    ],
-  },
-  {
-    id: '2',
-    name: 'Sport',
-    items: [
-      { id: '2', image: require('../../assets/images/news2.jpg'), description: 'Sport news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Sport Test :)') },
-    ],
-  },
-  {
-    id: '3',
-    name: 'Art',
-    items: [
-      { id: '3', image: require('../../assets/images/polling.png'), description: 'Art news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Art Test :)') },
-    ],
-  },
-  {
-    id: '4',
-    name: 'Test',
-    items: [
-      { id: '4', image: require('../../assets/images/polling.png'), description: 'Art news description...', buttonLabel: 'Lexo me shume...', buttonAction: () => Alert.alert('Art Test :)') },
-    ],
-  },
-];
 
 export default function Home() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -178,26 +147,32 @@ export default function Home() {
         <View style={styles.iconViewsContainer}>
           <View style={styles.iconWrapper}>
             <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+            <Text>Text</Text>
           </View>
           <View style={styles.iconWrapper}>
             <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+            <Text>Test2</Text>
           </View>
           <View style={styles.iconWrapper}>
             <Image source={require('../../assets/images/boy.webp')} style={styles.iconImage} />
+            <Text>Test3</Text>
           </View>
           <View style={styles.iconWrapper}>
             <Image source={require('../../assets/images/girl.jpg')} style={styles.iconImage} />
+            <Text>Test4</Text>
           </View>
         </View>
+        
         <View style={styles.activePollsContainer}>
-          <View style={styles.activePolls}>
+         <View style={styles.activePolls}>
             <Text style={styles.textActivePoll}>12 Active Polls</Text>
             <Text style={styles.innertextActivePoll}>Show Details</Text>
-          </View>
-          <View style={styles.detailIcon}>
-            <FontAwesome5 name="forward" size={32} color="white" />
-          </View>
-        </View>
+            <View style={styles.detailIcon}>
+         <FontAwesome5 style={styles.Icon} name="forward" size={32} color="black" />
+      </View>
+         </View>
+      
+      </View>
        
       </View>
     </ScrollView>
@@ -418,8 +393,8 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
   },
   iconImage: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
     borderRadius: 50,
   },
   activePollsContainer: {
@@ -447,6 +422,15 @@ const styles = StyleSheet.create({
   },
   detailIcon: {
     marginTop: 10,
+  },
+  Icon:{
+    color:'white',
+    borderWidth:3,
+    padding:15,
+    borderRadius:20,
+    borderColor:'white',
+  //  bottom:50,
+  //  left:100,
   },
   triangleWrapper: {
     width: '80%',

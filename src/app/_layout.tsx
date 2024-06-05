@@ -25,7 +25,7 @@ export default function RootLayout() {
             if (route.name === 'screens/home') {
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'screens/search') {
-              iconName = focused ? 'search' : 'search-outline';
+              iconName = focused ? 'book' : 'book-outline';
             } else if (route.name === 'screens/category') {
               iconName = focused ? 'list' : 'list-outline';
             } else if (route.name === 'screens/statistics') {
@@ -57,8 +57,8 @@ export default function RootLayout() {
         <Tabs.Screen 
           name="screens/search" 
           options={{ 
-            title: 'Search',
-            tabBarLabel: 'Search',
+            title: 'News',
+            tabBarLabel: 'News',
           }} 
         />
         <Tabs.Screen 
