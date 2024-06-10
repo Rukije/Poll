@@ -33,7 +33,7 @@ export default function RootLayout() {
             } else if (route.name === 'screens/savedList') {
               iconName = focused ? 'bookmark' : 'bookmark-outline';
             }else if (route.name === 'screens/profile') {
-              iconName = focused ? 'man' : 'man-outline';
+              iconName = focused ? 'person' : 'person-outline';
             } else {
               return null;
             }

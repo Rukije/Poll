@@ -8,7 +8,7 @@
     "icon": "./assets/poll.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/poll.png",
+      "image": "./assets/Poll2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
