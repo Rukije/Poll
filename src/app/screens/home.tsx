@@ -102,6 +102,11 @@ export default function Home() {
         <View>
           <Text style={styles.news}>News</Text>
         </View>
+        <ScrollView
+        horizontal
+        contentContainerStyle={styles.scrollViewContainer}
+        showsHorizontalScrollIndicator={false}
+      >
         <FlatList
           data={data.flatMap(category => category.items)}
           renderItem={renderItemImage}
@@ -110,6 +115,7 @@ export default function Home() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContainer}
         />
+        </ScrollView>
       </View>
       <View style={styles.voteSection}>
         <Text style={styles.voteSectionText}>
