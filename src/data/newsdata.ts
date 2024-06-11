@@ -40,7 +40,7 @@ const newsData: CategoryContent = {
   "Art": [
     {
       type: 'text',
-      content: "This is content for Art."
+      content: "Art history – the study of art from across the world, and from the ancient to the present day – covers virtually every aspect of human history and experience. This is because it looks at works of art not just as objects, but as a way of understanding the world, and the societies in which they were created.Art history – the study of art from across the world, and from the ancient to the present day – covers virtually every aspect of human history and experience. This is because it looks at works of art not just as objects, but as a way of understanding the world, and the societies in which they were created.Art history – the study of art from across the world, and from the ancient to the present day – covers virtually every aspect of human history and experience. This is because it looks at works of art not just as objects, but as a way of understanding the world, and the societies in which they were created.Art history – the study of art from across the world, and from the ancient to the present day – covers virtually every aspect of human history and experience. This is because it looks at works of art not just as objects, but as a way of understanding the world, and the societies in which they were created."
     },
     {
       type: 'image',

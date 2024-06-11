@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginHorizontal: 10,
-    borderBottomWidth: 0,
+    borderBottomWidth: 2,
     borderBottomColor: 'transparent',
   },
   selectedCategoryText: {

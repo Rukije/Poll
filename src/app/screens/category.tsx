@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from 'react-native';
+import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable,Animated } from 'react-native';
 import { Stack } from 'expo-router';
 import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -42,6 +42,7 @@ const getIconName = (title: string): string => {
       return 'help-circle';
   }
 };
+
 
 type Checkbox = {
   text: string;
@@ -109,6 +110,28 @@ export default function Category() {
   const loadMorePolls = () => {
     setVisiblePollsCount(prevCount => prevCount + 2);
   };
+  const animatedValue = new Animated.Value(1);
+
+  useEffect(() => {
+    const startHeartbeat = () => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(animatedValue, {
+            toValue: 1.3,
+            duration: 900,
+            useNativeDriver: true,
+          }),
+          Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: 900,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    };
+    
+    startHeartbeat();
+  }, []);
 
   return (
     <>
@@ -128,18 +151,20 @@ export default function Category() {
         <Text style={styles.categoryText}>Ju lutem selektoni kategorine specifike!</Text>
       </View>
       <FlatList
-        data={polls.slice(0, visiblePollsCount)} 
+        data={polls.slice(0, visiblePollsCount)}
         numColumns={2}
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
           <View style={styles.pollContainer}>
-             <Link href={{ pathname: `/screens/${item.id}`, params: { category: item.title } }} style={styles.link}>
-              <View style={styles.pollContent}>
-                <Icon name={getIconName(item.title)} size={24} color="white" style={styles.icon} />
-                <Text style={styles.pollTitle}>
-                  {item.title}
-                </Text>
-              </View>
+            <Link href={{ pathname: `/screens/${item.id}`, params: { category: item.title } }} style={styles.link}>
+                <View style={styles.pollContent}>
+                <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
+                  <Icon name={getIconName(item.title)} size={24} color="white" style={styles.icon} />
+                  </Animated.View>
+                  <Text style={styles.pollTitle}>
+                    {item.title}
+                  </Text>
+                </View>
             </Link>
           </View>
         )}

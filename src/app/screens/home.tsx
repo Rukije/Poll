@@ -68,8 +68,7 @@ export default function Home() {
       </View>
     </Animated.View>
   );
-
-
+  
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <Stack.Screen
@@ -131,36 +130,27 @@ export default function Home() {
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.iconWrapper}>
-        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
             <MaterialIcons name="how-to-vote" size={32} color="white" />
           </View>
-          </Animated.View>
           <Text style={styles.iconLabel}>Politikë</Text>
         </View>
         <View style={styles.iconWrapper}>
-      <Animated.View style={{ transform: [{ scale }] }}>
         <View style={styles.iconCircle}>
           <FontAwesome5 name="music" size={32} color="white" />
         </View>
-      </Animated.View>
       <Text style={styles.iconLabel}>Muzikë</Text>
     </View>
         <View style={styles.iconWrapper}>
-        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
             <FontAwesome5 name="camera" size={32} color="white" />
           </View>
-          </Animated.View>
           <Text style={styles.iconLabel}>Art</Text>
         </View>
         <View style={styles.iconWrapper}>
-        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
               <MaterialIcons name="computer" size={32} color="white" />
           </View>
-          </Animated.View>
-
           <Text style={styles.iconLabel}>Teknologji</Text>
         </View>
       </View>
