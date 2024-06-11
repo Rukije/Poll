@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableWithoutFeedback, Animated, Image, Platform } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableWithoutFeedback, Animated, Image } from 'react-native';
 import { Stack } from 'expo-router';
+import newsData from '../../data/newsdata';
 
 const Search = () => {
   const [selectedCategory, setSelectedCategory] = useState('All news');
@@ -9,7 +10,28 @@ const Search = () => {
     setSelectedCategory(category);
   };
 
-  const categories = ['All news', 'Politike', 'Art', 'Sport', 'Roze', 'Kulture', 'Teknologji'];
+  const categories = Object.keys(newsData);
+
+  const renderContent = (content) => {
+    return content.map((item, index) => {
+      if (item.type === 'text') {
+        return (
+          <View key={index} style={styles.news}>
+            <Text style={styles.newsText}>{item.content}</Text>
+          </View>
+        );
+      } else if (item.type === 'image') {
+        return (
+          <View key={index} style={styles.newsLayout}>
+            <Image source={item.src} style={styles.testImage} />
+            <View style={styles.test}>
+              <Text style={styles.testText}>{item.description}</Text>
+            </View>
+          </View>
+        );
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -47,19 +69,7 @@ const Search = () => {
       </ScrollView>
 
       <ScrollView contentContainerStyle={styles.newsContainer}>
-        <View style={styles.news}>
-          <Text style={styles.newsText}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</Text>
-        </View>
-
-        <View style={styles.newsLayout}>
-          <Image source={require('../../assets/images/results.jpg')} style={styles.testImage} />
-          <View style={styles.test}><Text style={styles.testText}>la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications</Text></View>
-        </View>
-
-        <View style={styles.news}>
-          <Text style={styles.newsText}>
-             Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications.</Text>
-        </View>
+        {renderContent(newsData[selectedCategory])}
       </ScrollView>
     </View>
   );
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
   },
   testImage: {
     width: 150,
-    height:'auto',
+    height: 'auto',
     borderRadius: 10,
   },
 });

@@ -31,7 +31,7 @@ const Statistics = () => {
     <ScrollView >
       <Stack.Screen
         options={{
-          title: 'Questin',
+          title: 'Question',
           headerStyle: {
             backgroundColor: '#193C47',
           },
