@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius:15,
+    borderRadius:23,
   },
     submitButton:{
     backgroundColor:"#193C47",
@@ -129,8 +129,9 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginHorizontal:38,
     backgroundColor:"white",
-    padding:85,
+    padding:80,
     color: '#193C47',
     borderRadius:15,
     marginBottom: 20,
@@ -148,7 +149,8 @@ const styles = StyleSheet.create({
     display:'flex',
     margin:'auto',
     borderWidth:3,
-    borderRadius:15,
+    // borderRadius:15,
     borderColor:'white',
+    bottom:45,
   }
 });

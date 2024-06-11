@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, Alert, TouchableOpacity, TextInput} from 'react-native';
 import { Stack } from 'expo-router';
 import { MaterialIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import data from '../../data/category';
@@ -23,7 +23,7 @@ export default function Home() {
   const translateYAnim = useRef(new Animated.Value(-20)).current;
   const [text, setText] = useState('');
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
-
+  
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fadeAnim, {
@@ -39,6 +39,13 @@ export default function Home() {
     ]).start();
   }, [fadeAnim, translateYAnim]);
 
+  const [scale]= useState(new Animated.Value(1));
+  Animated.loop(
+    Animated.sequence([
+      Animated.spring(scale, { toValue: 1.2, useNativeDriver: true }),
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true }),
+    ]),
+  ).start();
   useEffect(() => {
     if (text) {
       const newFilteredCategories = data.filter(category =>
@@ -124,27 +131,36 @@ export default function Home() {
       </View>
       <View style={styles.iconContainer}>
         <View style={styles.iconWrapper}>
+        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
             <MaterialIcons name="how-to-vote" size={32} color="white" />
           </View>
+          </Animated.View>
           <Text style={styles.iconLabel}>Politikë</Text>
         </View>
         <View style={styles.iconWrapper}>
-          <View style={styles.iconCircle}>
-            <FontAwesome5 name="music" size={32} color="white" />
-          </View>
-          <Text style={styles.iconLabel}>Muzikë</Text>
+      <Animated.View style={{ transform: [{ scale }] }}>
+        <View style={styles.iconCircle}>
+          <FontAwesome5 name="music" size={32} color="white" />
         </View>
+      </Animated.View>
+      <Text style={styles.iconLabel}>Muzikë</Text>
+    </View>
         <View style={styles.iconWrapper}>
+        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
             <FontAwesome5 name="camera" size={32} color="white" />
           </View>
+          </Animated.View>
           <Text style={styles.iconLabel}>Art</Text>
         </View>
         <View style={styles.iconWrapper}>
+        <Animated.View style={{ transform: [{ scale }] }}>
           <View style={styles.iconCircle}>
               <MaterialIcons name="computer" size={32} color="white" />
           </View>
+          </Animated.View>
+
           <Text style={styles.iconLabel}>Teknologji</Text>
         </View>
       </View>
@@ -174,7 +190,9 @@ export default function Home() {
             <Text style={styles.textActivePoll}>12 Active Polls</Text>
             <Text style={styles.innertextActivePoll}>Show Details</Text>
             <View style={styles.detailIcon}>
-         <FontAwesome5 style={styles.Icon} name="forward" size={32} color="black" />
+            <Animated.View style={{ transform: [{ scale }] }}>
+                <FontAwesome5 style={styles.Icon} name="forward" size={22} color="black" />
+            </Animated.View>
       </View>
          </View>
       
@@ -349,13 +367,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   iconCircle: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderRadius: 50,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '1%',
+    margin: 15,
     bottom:25,
 
   },
